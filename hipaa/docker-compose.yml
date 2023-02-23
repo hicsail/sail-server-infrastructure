@@ -1,8 +1,13 @@
 version: '3'
 services:
-  nginx-ui:
-    image: schenkd/nginx-ui:latest
+  ngnix-ui:
+    image: uozi/nginx-ui:latest
+    container_name: ngnix-ui
+    restart: always
     ports:
-      - 8080:8080
+      - 8080:80
+      - 8443:443
     volumes:
-      - nginx:/etc/nginx
+      - /var/www:/var/www
+      - /etc/nginx:/etc/nginx
+      - ./data/nginx-ui:/etc/nginx-ui
