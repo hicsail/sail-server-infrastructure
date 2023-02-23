@@ -25,12 +25,8 @@ services:
       - ./data/nginx:/data
       - ./letsencrypt:/etc/letsencrypt
       - ./nginx.config.json:/app/config/production.json
+      - ./server.conf:/data/nginx/custom/http.conf
 
 volumes:
     portainer_data:
       external: true
-
-networks:
-  default:
-    external: true
-    name: sail_network
