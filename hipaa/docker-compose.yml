@@ -1,32 +1,13 @@
 version: '3'
 services:
-  portainer:
-    image: portainer/portainer-ce:latest
-    privileged: true
+  ngnix-ui:
+    image: uozi/nginx-ui:latest
+    container_name: ngnix-ui
     restart: always
     ports:
-      - 8000:8000
-      - 9443:9443
+      - 8080:80
+      - 8443:443
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-  nginx:
-    image: jc21/nginx-proxy-manager:latest
-    restart: unless-stopped
-    healthcheck:
-      test: [ "CMD", "/bin/check-health" ]
-      interval: 10s
-      timeout: 3s
-    ports:
-      - '80:80'
-      - '443:443'
-      - '81:81'
-    volumes:
-      - ./data/nginx:/data
-      - ./letsencrypt:/etc/letsencrypt
-      - ./nginx.config.json:/app/config/production.json
-      - ./server.conf:/data/nginx/custom/http.conf
-
-volumes:
-    portainer_data:
-      external: true
+      - /var/www:/var/www
+      - /etc/nginx:/etc/nginx
+      - ./data/nginx-ui:/etc/nginx-ui
